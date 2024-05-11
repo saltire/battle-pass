@@ -1,0 +1,22 @@
+.App {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1600px;
+  height: 900px;
+  background-color: #4fb8ff;
+  color: white;
+  text-align: center;
+  font-size: 20px;
+
+  button {
+    padding: 20px;
+    border: 0;
+    background-color: #ffa61f;
+    box-shadow: 5px 5px 0 0 #ffd156 inset, -5px -5px 0 0 #d85d09 inset;
+    color: white;
+    font-size: inherit;
+    font-family: inherit;
+    cursor: url('/src/assets/cursor-hover.png'), pointer;
+  }
+}
