@@ -1,10 +1,10 @@
 import './Player.css';
 
 export type PlayerLoadout = {
-  hat?: string,
-  face?: string,
-  shirt?: string,
-  pants?: string,
+  hat?: string | null,
+  face?: string | null,
+  shirt?: string | null,
+  pants?: string | null,
 };
 
 type PlayerProps = {

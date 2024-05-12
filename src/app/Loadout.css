@@ -1,55 +1,68 @@
 .Loadout {
-  .items {
+  .main {
     position: absolute;
-    top: 205px;
-    left: 125px;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    gap: 20px;
-    row-gap: 20px;
-
-    button {
-      position: relative;
-      width: 150px;
-      height: 150px;
-      box-shadow: 0 0 0 5px black;
-      background-color: rgb(255 255 255 / .6);
-      overflow: hidden;
-
-      img {
-        position: absolute;
-        left: -125px;
-      }
-
-      &.hat img {
-        top: 0px;
-      }
-      &.face img {
-        top: -70px;
-      }
-      &.shirt img {
-        top: -175px;
-      }
-      &.pants img {
-        top: -290px;
-      }
-    }
-  }
-
-  .nav {
-    position: absolute;
-    top: 730px;
+    top: 0;
+    bottom: 0;
     left: 125px;
     display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    width: 830px;
+    flex-direction: column;
+    justify-content: center;
+    gap: 30px;
 
-    button {
-      padding: 10px 20px;
-      background-color: var(--cyan);
-      box-shadow: 5px 5px 0 0 var(--light-cyan) inset, -5px -5px 0 0 var(--dark-cyan) inset;
-      color: white;
+    .items {
+      display: grid;
+      grid-template: repeat(3, 1fr) / repeat(5, 1fr);
+      gap: 20px;
+      row-gap: 20px;
+
+      button {
+        position: relative;
+        width: 150px;
+        height: 150px;
+        box-shadow: 0 0 0 5px black;
+        background-color: rgb(255 255 255 / .6);
+        overflow: hidden;
+
+        img {
+          position: absolute;
+          left: -125px;
+        }
+
+        &.remove img {
+          top: 0px;
+          left: 0px;
+        }
+        &.hat img {
+          top: 0px;
+        }
+        &.face img {
+          top: -70px;
+        }
+        &.shirt img {
+          top: -175px;
+        }
+        &.pants img {
+          top: -290px;
+        }
+      }
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-evenly;
+      width: 830px;
+
+      button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 70px;
+        height: 50px;
+        background-color: var(--cyan);
+        box-shadow: 5px 5px 0 0 var(--light-cyan) inset, -5px -5px 0 0 var(--dark-cyan) inset;
+        color: white;
+      }
     }
   }
 
