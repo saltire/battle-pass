@@ -5,12 +5,13 @@ import BattlePass from './BattlePass';
 import Loadout from './Loadout';
 import Modal from './Modal';
 import Play from './Play';
-import Quests from './Quests';
+import Quests, { quests } from './Quests';
 import Shop from './Shop';
 import { items } from './items';
 import { GameState, PageProps } from './types';
 import burstImg from '../assets/burst.png';
 import gonkImg from '../assets/currency_GONK.png';
+import starImg from '../assets/currency_XP-ribbon.png';
 
 const pages: { [index: string]: ComponentType<PageProps> } = {
   Play,
@@ -28,6 +29,7 @@ export default function App() {
     loading: true,
     items: [],
     loadout: {},
+    quests: [],
   });
 
   const [seenIntro, setSeenIntro] = useState(false);
@@ -35,6 +37,7 @@ export default function App() {
   const [seenLoadout, setSeenLoadout] = useState(false);
 
   const [modalContent, setModalContent] = useState<ReactNode>(null);
+  const [showStarHighlight, setShowStarHighlight] = useState(false);
   const [showGonkHighlight, setShowGonkHighlight] = useState(false);
 
   const intro = useMemo(() => (
@@ -94,7 +97,7 @@ export default function App() {
   ), []);
 
   const justBoughtItem = useMemo(() => items.find(item => item.name === state.justBought), [state.justBought]);
-  const boughtItem = useMemo(() => (
+  const justBought = useMemo(() => justBoughtItem && (
     <>
       <p>UNLOCKED!</p>
       <div className='boughtitem'>
@@ -108,6 +111,26 @@ export default function App() {
       </button>
     </>
   ), [justBoughtItem]);
+
+  const completedQuest = useMemo(() => quests.find(q => !state.quests.includes(q.id) && q.condition(state)), [state]);
+  const questComplete = useMemo(() => completedQuest && (
+    <>
+      <h2>QUEST COMPLETED!</h2>
+      <p className='questtitle'>{completedQuest.title}</p>
+      <p className='questdesc'>{completedQuest.desc}</p>
+      <p className='queststars'><img src={starImg} /> {completedQuest.stars}</p>
+      <button
+        type='button'
+        onClick={() => setState(prev => ({
+          ...prev,
+          quests: [...prev.quests, completedQuest.id],
+          stars: (prev.stars || 0) + completedQuest.stars,
+        }))}
+      >
+        Claim
+      </button>
+    </>
+  ), [completedQuest]);
 
   useEffect(() => {
     setTimeout(() => {
@@ -131,8 +154,11 @@ export default function App() {
     else if (page === 'Play' && !seenLoadout && !(state.loadout.hat && state.loadout.face && state.loadout.top && state.loadout.bottom)) {
       setModalContent(gotoLoadout);
     }
-    else if (state.justBought) {
-      setModalContent(boughtItem);
+    else if (justBought) {
+      setModalContent(justBought);
+    }
+    else if (questComplete) {
+      setModalContent(questComplete);
     }
     else {
       setModalContent(null);
@@ -140,8 +166,8 @@ export default function App() {
     }
   }, [
     seenIntro, seenBucks, seenLoadout, page,
-    state.gonks, state.loadout, state.justBought,
-    intro, freeBucks, spendGonks, boughtItem,
+    state.gonks, state.loadout,
+    intro, freeBucks, spendGonks, justBought, questComplete,
   ]);
 
   return (
@@ -164,9 +190,11 @@ export default function App() {
 
       <Modal>{modalContent}</Modal>
 
-      {showGonkHighlight && <img className='gonk-highlight' src={burstImg} />}
+      {showStarHighlight && <img className='star highlight' src={burstImg} />}
+      {showGonkHighlight && <img className='gonk highlight' src={burstImg} />}
 
       <footer>
+        <span><img src={starImg} /> {state.stars || 0}</span>
         {state.gonks !== undefined && <span><img src={gonkImg} /> {state.gonks}</span>}
       </footer>
     </div>

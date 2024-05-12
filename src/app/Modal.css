@@ -68,5 +68,19 @@
         }
       }
     }
+
+    .questtitle {
+      margin: 0;
+    }
+    .questdesc {
+      margin: 0;
+      color: var(--dark-blue);
+    }
+    .queststars {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+    }
   }
 }

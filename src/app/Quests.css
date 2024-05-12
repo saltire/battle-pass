@@ -1,3 +1,35 @@
 .Quests {
+  .quest-list {
+    width: 800px;
+    padding: 20px;
+    background-color: var(--light-white);
+    color: black;
+    box-shadow: 5px 5px 0 0 white inset, -5px -5px 0 0 var(--dark-white) inset;
+    text-align: left;
 
+    > div {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 10px;
+
+      &.completed {
+        opacity: .5;
+      }
+
+      p {
+        margin: 0;
+
+        &.desc {
+          color: var(--dark-blue);
+        }
+      }
+
+      .xp {
+        display: flex;
+        align-items: center;
+        font-size: 30px;
+      }
+    }
+  }
 }

@@ -43,8 +43,8 @@ export default function Shop({ state, setState }: PageProps) {
                 onClick={() => setState(prev => ({
                   ...prev,
                   items: [...prev.items, name],
-                  gonks: prev.gonks - value,
-                  gonksSpent: prev.gonksSpent + value,
+                  gonks: (prev.gonks || 0) - value,
+                  gonksSpent: (prev.gonksSpent || 0) + value,
                   justBought: name,
                 }))}
               >

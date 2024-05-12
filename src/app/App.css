@@ -88,12 +88,19 @@
     }
   }
 
-  .gonk-highlight {
+  .highlight {
     position: absolute;
-    left: -25px;
     bottom: -120px;
     z-index: 2000;
     animation: 6s linear 0s infinite normal rotate;
+
+    &.star {
+      left: -25px;
+    }
+
+    &.gonk {
+      left: 235px;
+    }
   }
 }
 
