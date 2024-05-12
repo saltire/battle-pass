@@ -20,7 +20,7 @@ export default function App() {
   const PageComponent = pages[page];
 
   return (
-    <div className='App'>
+    <div className={`App page-${page}`}>
       <header>
         {Object.keys(pages).map(p => (
           <button
