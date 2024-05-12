@@ -35,11 +35,11 @@ export default function Shop({ state, setState }: PageProps) {
 
         <div className='items'>
           {filteredItems.slice(page * 14, (page + 1) * 14).map(({ name, slot, url, value }) => (
-            <div key={name} className={value > state.gonks ? 'locked' : ''}>
+            <div key={name} className={value > (state.gonks || 0) ? 'locked' : ''}>
               <button
                 type='button'
                 className={name === 'remove' ? 'remove' : slot}
-                disabled={value > state.gonks}
+                disabled={value > (state.gonks || 0)}
                 onClick={() => setState(prev => ({
                   ...prev,
                   items: [...prev.items, name],

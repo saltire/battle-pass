@@ -2,7 +2,7 @@ const { promises: fs } = require('node:fs');
 
 fs.readdir('./src/assets/items')
   .then(names => {
-    names.forEach(name => {
+    names.filter(name => name.slice(-4) === '.png').forEach(name => {
       const varName = name.replaceAll('-', '_').replace('.png', '');
       console.log(`import ${varName} from '../assets/items/${name}';`);
     });

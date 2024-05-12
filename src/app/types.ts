@@ -4,9 +4,9 @@ export type PlayerLoadout = { [index: string]: string | null };
 
 export type GameState = {
   loading: boolean,
-  gonks?: number,
-  zoids?: number,
-  stars?: number,
+  gonks: number,
+  zoids: number,
+  stars: number,
   gonksSpent?: number,
   items: string[],
   loadout: PlayerLoadout,

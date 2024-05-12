@@ -34,6 +34,9 @@ export default function App() {
 
   const [state, setState] = useState<GameState>({
     loading: true,
+    gonks: 0,
+    zoids: 0,
+    stars: 0,
     items: [],
     loadout: {},
     quests: [],
