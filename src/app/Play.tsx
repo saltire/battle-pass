@@ -3,12 +3,9 @@ import './Play.css';
 export default function Play() {
   return (
     <div className='Play'>
-      <h2>Welcome!</h2>
+      <div className='title'><div className='overlay' /></div>
+      {/* <img src='/src/assets/gonkazoid2x.png' /> */}
       <button type='button'>Play Game</button>
-
-      {/* <Modal>
-        Hello!
-      </Modal> */}
     </div>
   );
 }

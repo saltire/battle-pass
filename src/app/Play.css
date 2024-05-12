@@ -3,8 +3,21 @@
   background-color: var(--cyan);
   box-shadow: 5px 5px 0 0 var(--light-cyan) inset, -5px -5px 0 0 var(--dark-cyan) inset;
 
-  h2 {
-    margin: 0 0 40px;
+  .title {
+    position: relative;
+    width: 660px;
+    height: 78px;
+    margin-bottom: 40px;
+    background: url('/src/assets/gonkazoid2x-border.png');
+    animation: 4s ease-in-out 0s infinite normal throb;
+
+    .overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, var(--orange), var(--light-blue), var(--dark-orange));
+      mask-image: url('/src/assets/gonkazoid2x.png');
+      overflow: hidden;
+    }
   }
 
   button {
@@ -13,5 +26,20 @@
     background-color: var(--orange);
     box-shadow: 5px 5px 0 0 var(--light-orange) inset, -5px -5px 0 0 var(--dark-orange) inset;
     color: white;
+  }
+}
+
+@keyframes throb {
+  0% {
+    transform: scale(1) rotate(0);
+  }
+  25% {
+    transform: scale(1.1) rotate(2deg);
+  }
+  50% {
+    transform: scale(1) rotate(0);
+  }
+  75% {
+    transform: scale(1.1) rotate(-2deg);
   }
 }
