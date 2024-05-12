@@ -26,7 +26,7 @@ export default function App() {
           <button
             key={p}
             type='button'
-            className={page === p ? 'active' : undefined}
+            className={[page === p && 'active', p === 'Battle Pass' && 'battle'].filter(Boolean).join(' ')}
             onClick={() => setPage(p)}
           >
             {p}

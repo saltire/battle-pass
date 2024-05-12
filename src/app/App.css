@@ -54,6 +54,12 @@
       color: white;
       text-transform: uppercase;
 
+      &.battle {
+        /* color: var(--light-cyan); */
+        font-size: 28px;
+        font-weight: 700;
+      }
+
       &.active {
         color: var(--light-orange);
       }
