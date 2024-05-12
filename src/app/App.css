@@ -99,6 +99,13 @@
       width: 64px;
       height: 64px;
     }
+
+    .mute {
+      margin-left: auto;
+      background: none;
+      color: white;
+      font-size: 20px;
+    }
   }
 
   .highlight {

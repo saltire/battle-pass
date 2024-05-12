@@ -13,6 +13,7 @@ import burstImg from '../assets/burst.png';
 import gonkImg from '../assets/currency_GONK.png';
 import zoidImg from '../assets/currency_ZOID.png';
 import starImg from '../assets/currency_XP-ribbon.png';
+import waitingRoom from '../assets/Waiting Room.mp3';
 
 const pages: { [index: string]: ComponentType<PageProps> } = {
   Play,
@@ -21,6 +22,10 @@ const pages: { [index: string]: ComponentType<PageProps> } = {
   'Zoid Pass': BattlePass,
   Quests,
 };
+
+const waitingRoomAudio = new Audio(waitingRoom);
+waitingRoomAudio.loop = true;
+waitingRoomAudio.volume = 0.5;
 
 export default function App() {
   const [page, setPage] = useState('Play');
@@ -34,6 +39,10 @@ export default function App() {
     level: 1,
     levelClaimed: 1,
   });
+
+  useEffect(() => {
+    waitingRoomAudio.play();
+  }, []);
 
   const [seenIntro, setSeenIntro] = useState(false);
   const [seenBucks, setSeenBucks] = useState(false);
@@ -266,6 +275,21 @@ export default function App() {
         <span><img src={starImg} /> {state.stars || 0}</span>
         {state.gonks !== undefined && <span><img src={gonkImg} /> {state.gonks}</span>}
         {state.zoids !== undefined && <span><img className='zoids' src={zoidImg} /> {state.zoids}</span>}
+
+        <button
+          type='button'
+          className='mute'
+          onClick={() => {
+            if (waitingRoomAudio.volume) {
+              waitingRoomAudio.volume = 0;
+            }
+            else {
+              waitingRoomAudio.volume = 0.5;
+            }
+          }}
+        >
+          Mute
+        </button>
       </footer>
     </div>
   );
