@@ -29,6 +29,10 @@
       top: 0;
     }
 
+    .orangetext {
+      color: var(--dark-orange);
+    }
+
     strong {
       background: linear-gradient(to bottom, var(--dark-orange), var(--orange), var(--light-blue), var(--purple), var(--dark-purple));
       background-clip: text;
@@ -81,6 +85,13 @@
       align-items: center;
       justify-content: center;
       font-size: 30px;
+    }
+
+    .levelup {
+      margin: -30px;
+      padding: 30px;
+      background-color: var(--light-gold);
+      box-shadow: 5px 5px 0 0 var(--gold) inset, -5px -5px 0 0 var(--dark-gold) inset;
     }
   }
 }

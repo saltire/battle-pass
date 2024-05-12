@@ -11,13 +11,14 @@ import { items } from './items';
 import { GameState, PageProps } from './types';
 import burstImg from '../assets/burst.png';
 import gonkImg from '../assets/currency_GONK.png';
+import zoidImg from '../assets/currency_ZOID.png';
 import starImg from '../assets/currency_XP-ribbon.png';
 
 const pages: { [index: string]: ComponentType<PageProps> } = {
   Play,
   Loadout,
   'Gonk Shop': Shop,
-  'Battle Pass': BattlePass,
+  'Zoid Pass': BattlePass,
   Quests,
 };
 
@@ -30,15 +31,20 @@ export default function App() {
     items: [],
     loadout: {},
     quests: [],
+    level: 1,
+    levelClaimed: 1,
   });
 
   const [seenIntro, setSeenIntro] = useState(false);
   const [seenBucks, setSeenBucks] = useState(false);
+  const [seenZoids, setSeenZoids] = useState(false);
   const [seenLoadout, setSeenLoadout] = useState(false);
 
   const [modalContent, setModalContent] = useState<ReactNode>(null);
+  const [showLevelHighlight, setShowLevelHighlight] = useState(false);
   const [showStarHighlight, setShowStarHighlight] = useState(false);
   const [showGonkHighlight, setShowGonkHighlight] = useState(false);
+  const [showZoidHighlight, setShowZoidHighlight] = useState(false);
 
   const intro = useMemo(() => (
     <>
@@ -81,6 +87,22 @@ export default function App() {
     </>
   ), []);
 
+  const spendZoids = useMemo(() => (
+    <>
+      <p>You have unspent <span className='zoidtext'>Zoids</span>! Redeem them with your ZOID PASS!</p>
+      <button
+        type='button'
+        onClick={() => {
+          setSeenZoids(true);
+          setShowZoidHighlight(false);
+          setPage('Zoid Pass');
+        }}
+      >
+        Go to ZOID PASS
+      </button>
+    </>
+  ), []);
+
   const gotoLoadout = useMemo(() => (
     <>
       <p>Don't forget to equip your hard-earned items in your Loadout!</p>
@@ -114,7 +136,7 @@ export default function App() {
 
   const completedQuest = useMemo(() => quests.find(q => !state.quests.includes(q.id) && q.condition(state)), [state]);
   const questComplete = useMemo(() => completedQuest && (
-    <>
+    <div className='levelup'>
       <h2>QUEST COMPLETED!</h2>
       <p className='questtitle'>{completedQuest.title}</p>
       <p className='questdesc'>{completedQuest.desc}</p>
@@ -129,8 +151,26 @@ export default function App() {
       >
         Claim
       </button>
-    </>
+    </div>
   ), [completedQuest]);
+
+  const xpLevel = useMemo(() => Math.floor((state.stars || 0) / 100) + 1, [state.stars]);
+  const levelUp = useMemo(() => (xpLevel <= state.level ? null : (
+    <div className='levelup'>
+      <h2 className='orangetext'>LEVEL UP!</h2>
+      <p>Congratulations, you've hit level {xpLevel}!</p>
+      <button
+        type='button'
+        onClick={() => {
+          setState(prev => ({ ...prev, level: xpLevel }));
+          setShowLevelHighlight(false);
+          setPage('Quests');
+        }}
+      >
+        View Quest Rewards
+      </button>
+    </div>
+  )), [state.level, xpLevel]);
 
   useEffect(() => {
     setTimeout(() => {
@@ -140,12 +180,19 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    if (!seenIntro) {
+    if (state.loading) {
+      // pass
+    }
+    else if (!seenIntro) {
       setModalContent(intro);
     }
     else if (!seenBucks) {
       setModalContent(freeBucks);
       setShowGonkHighlight(true);
+    }
+    else if ((!seenZoids || page === 'Play') && state.zoids) {
+      setModalContent(spendZoids);
+      setShowZoidHighlight(true);
     }
     else if (page === 'Play' && state.gonks) {
       setModalContent(spendGonks);
@@ -160,14 +207,18 @@ export default function App() {
     else if (questComplete) {
       setModalContent(questComplete);
     }
+    else if (levelUp) {
+      setModalContent(levelUp);
+      setShowLevelHighlight(true);
+    }
     else {
       setModalContent(null);
       setShowGonkHighlight(false);
     }
   }, [
-    seenIntro, seenBucks, seenLoadout, page,
-    state.gonks, state.loadout,
-    intro, freeBucks, spendGonks, justBought, questComplete,
+    seenIntro, seenBucks, seenZoids, seenLoadout, page,
+    state.loading, state.gonks, state.zoids, state.loadout,
+    intro, freeBucks, spendGonks, justBought, questComplete, levelUp,
   ]);
 
   return (
@@ -178,7 +229,7 @@ export default function App() {
             key={p}
             type='button'
             disabled={state.loading}
-            className={[page === p && 'active', p === 'Battle Pass' && 'battle'].filter(Boolean).join(' ')}
+            className={[page === p && 'active', p === 'Zoid Pass' && 'bigger'].filter(Boolean).join(' ')}
             onClick={() => setPage(p)}
           >
             {p}
@@ -190,12 +241,16 @@ export default function App() {
 
       <Modal>{modalContent}</Modal>
 
+      {showLevelHighlight && <img className='level highlight' src={burstImg} />}
       {showStarHighlight && <img className='star highlight' src={burstImg} />}
       {showGonkHighlight && <img className='gonk highlight' src={burstImg} />}
+      {showZoidHighlight && <img className='zoid highlight' src={burstImg} />}
 
       <footer>
+        <div className='level'>{xpLevel}</div>
         <span><img src={starImg} /> {state.stars || 0}</span>
         {state.gonks !== undefined && <span><img src={gonkImg} /> {state.gonks}</span>}
+        {state.zoids !== undefined && <span><img className='zoids' src={zoidImg} /> {state.zoids}</span>}
       </footer>
     </div>
   );

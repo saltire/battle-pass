@@ -1,7 +1,8 @@
 .Quests {
   .quest-list {
     width: 800px;
-    padding: 20px;
+    margin: 20px auto;
+    padding: 10px;
     background-color: var(--light-white);
     color: black;
     box-shadow: 5px 5px 0 0 white inset, -5px -5px 0 0 var(--dark-white) inset;
@@ -29,6 +30,90 @@
         display: flex;
         align-items: center;
         font-size: 30px;
+      }
+    }
+  }
+
+  .rewards {
+    width: 1000px;
+    margin: 20px auto;
+    padding: 10px;
+    background-color: var(--light-white);
+    color: black;
+    box-shadow: 5px 5px 0 0 white inset, -5px -5px 0 0 var(--dark-white) inset;
+    text-align: left;
+
+    h2 {
+      text-align: center;
+    }
+
+    .meter {
+      position: relative;
+      width: 720px;
+      height: 20px;
+      margin: 20px auto;
+      border-style: solid;
+      border-color: var(--off-white);
+      border-width: 6px 20px;
+      background: black;
+
+      .meter-fill {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        z-index: 10;
+        background: linear-gradient(to top right, var(--dark-gold), var(--gold), var(--light-gold));
+      }
+    }
+
+    .levels {
+      display: flex;
+      justify-content: center;
+
+      > div {
+        width: 180px;
+        height: 200px;
+        text-align: center;
+
+        .lvl {
+          display: block;
+          width: 40px;
+          height: 40px;
+          margin: auto;
+          background-color: var(--orange);
+          box-shadow: 5px 5px 0 0 var(--light-orange) inset, -5px -5px 0 0 var(--dark-orange) inset;
+          color: white;
+          line-height: 40px;
+        }
+
+        button {
+          position: relative;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background-color: white;
+          box-shadow: 5px 5px 0 0 var(--light-white) inset, -5px -5px 0 0 var(--off-white) inset;
+          width: 160px;
+          height: 100px;
+          margin: 10px;
+          gap: 10px;
+
+          img.zoid {
+            width: 64px;
+            height: 64px;
+          }
+
+          img.check {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+          }
+        }
+
+        .claim {
+          color: var(--red);
+        }
       }
     }
   }

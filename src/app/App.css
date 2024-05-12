@@ -59,8 +59,7 @@
       color: white;
       text-transform: uppercase;
 
-      &.battle {
-        /* color: var(--light-cyan); */
+      &.bigger {
         font-size: 28px;
         font-weight: 700;
       }
@@ -79,12 +78,26 @@
     padding: 0 20px;
     font-size: 35px;
 
+    .level {
+      width: 56px;
+      height: 56px;
+      margin: 0 10px;
+      background-color: var(--orange);
+      box-shadow: 5px 5px 0 0 var(--light-orange) inset, -5px -5px 0 0 var(--dark-orange) inset;
+      line-height: 64px;
+    }
+
     span {
       display: flex;
       align-items: center;
       width: 200px;
       margin: 0 30px;
       gap: 10px;
+    }
+
+    img.zoids {
+      width: 64px;
+      height: 64px;
     }
   }
 
@@ -94,12 +107,17 @@
     z-index: 2000;
     animation: 6s linear 0s infinite normal rotate;
 
-    &.star {
-      left: -25px;
+    &.level {
+      left: -95px;
     }
-
+    &.star {
+      left: 55px;
+    }
     &.gonk {
-      left: 235px;
+      left: 315px;
+    }
+    &.zoid {
+      left: 575px;
     }
   }
 }
@@ -118,5 +136,7 @@
 }
 
 .zoidtext {
-  color: var(--dark-gold);
+  background: linear-gradient(to bottom, var(--dark-purple), var(--light-orange));
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }

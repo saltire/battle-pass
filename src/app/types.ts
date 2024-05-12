@@ -12,6 +12,8 @@ export type GameState = {
   loadout: PlayerLoadout,
   justBought?: string | null,
   quests: string[],
+  level: number,
+  levelClaimed: number,
 };
 
 export type PageProps = {
