@@ -15,6 +15,9 @@ import gonkImg from '../assets/currency_GONK.png';
 import zoidImg from '../assets/currency_ZOID.png';
 import starImg from '../assets/currency_XP-ribbon.png';
 import waitingRoom from '../assets/Waiting Room.mp3';
+import glitter1 from '../assets/sounds/Glitter 1.mp3';
+import glitter2 from '../assets/sounds/Glitter 2.mp3';
+import glitter3 from '../assets/sounds/Glitter 3.mp3';
 
 const pages: { [index: string]: ComponentType<PageProps> } = {
   Play,
@@ -27,6 +30,12 @@ const pages: { [index: string]: ComponentType<PageProps> } = {
 const waitingRoomAudio = new Audio(waitingRoom);
 waitingRoomAudio.loop = true;
 waitingRoomAudio.volume = 0.5;
+
+const glitters = [
+  new Audio(glitter1),
+  new Audio(glitter2),
+  new Audio(glitter3),
+];
 
 export default function App() {
   const [page, setPage] = useState('Play');
@@ -238,9 +247,11 @@ export default function App() {
       setModalContent(justBought);
     }
     else if (questComplete) {
+      glitters[Math.floor(Math.random() * glitters.length)].play();
       setModalContent(questComplete);
     }
     else if (levelUp) {
+      glitters[Math.floor(Math.random() * glitters.length)].play();
       setModalContent(levelUp);
       setShowLevelHighlight(true);
     }

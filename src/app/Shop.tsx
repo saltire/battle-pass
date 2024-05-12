@@ -5,6 +5,23 @@ import { items } from './items';
 import { icons } from './slots';
 import { PageProps } from './types';
 import gonkImg from '../assets/currency_GONK.png';
+import bling1 from '../assets/sounds/Bling 1.mp3';
+import bling2 from '../assets/sounds/Bling 2.mp3';
+import bling3 from '../assets/sounds/Bling 3.mp3';
+import bling4 from '../assets/sounds/Bling 4.mp3';
+import bling5 from '../assets/sounds/Bling 5.mp3';
+import bling6 from '../assets/sounds/Bling 6.mp3';
+import bling7 from '../assets/sounds/Bling 7.mp3';
+
+const blings = [
+  new Audio(bling1),
+  new Audio(bling2),
+  new Audio(bling3),
+  new Audio(bling4),
+  new Audio(bling5),
+  new Audio(bling6),
+  new Audio(bling7),
+];
 
 export default function Shop({ state, setState }: PageProps) {
   const shopItems = items.filter(item => !state.items.includes(item.name));
@@ -40,13 +57,19 @@ export default function Shop({ state, setState }: PageProps) {
                 type='button'
                 className={name === 'remove' ? 'remove' : slot}
                 disabled={value > (state.gonks || 0)}
-                onClick={() => setState(prev => ({
-                  ...prev,
-                  items: [...prev.items, name],
-                  gonks: (prev.gonks || 0) - value,
-                  gonksSpent: (prev.gonksSpent || 0) + value,
-                  justBought: name,
-                }))}
+                onClick={() => {
+                  const bling = blings[Math.floor(Math.random() * blings.length)];
+                  bling.load();
+                  bling.play();
+
+                  setState(prev => ({
+                    ...prev,
+                    items: [...prev.items, name],
+                    gonks: (prev.gonks || 0) - value,
+                    gonksSpent: (prev.gonksSpent || 0) + value,
+                    justBought: name,
+                  }));
+                }}
               >
                 <img src={url} />
               </button>
