@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode, useCallback, useEffect, useState } from 'react';
 import ReactModal from 'react-modal';
 
 import './Modal.css';
@@ -8,17 +8,30 @@ type ModalProps = {
   children?: ReactNode,
 };
 
-export default function Modal({ onClose, children }: ModalProps) {
+export default function Modal({ children }: ModalProps) {
+  const [visible, setVisible] = useState(false);
+  const [visibleChildren, setVisibleChildren] = useState(children);
+
+  useEffect(() => {
+    if (children) {
+      setVisible(true);
+      setVisibleChildren(children);
+    }
+    else {
+      setVisible(false);
+      setTimeout(() => setVisible(false));
+    }
+  }, [children]);
+
   return (
     <ReactModal
       isOpen
-      className='Modal'
+      className={`Modal ${visible ? 'visible' : ''}`}
       portalClassName='ModalPortal'
-      overlayClassName='ModalOverlay'
+      overlayClassName={`ModalOverlay ${visible ? 'visible' : ''}`}
       shouldCloseOnOverlayClick={false}
-      onRequestClose={onClose}
     >
-      {children}
+      {visibleChildren}
     </ReactModal>
   );
 }

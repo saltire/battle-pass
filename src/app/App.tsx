@@ -1,8 +1,9 @@
-import { ComponentType, useState } from 'react';
+import { ComponentType, ReactNode, useEffect, useState } from 'react';
 
 import './App.css';
 import BattlePass from './BattlePass';
 import Loadout from './Loadout';
+import Modal from './Modal';
 import Play from './Play';
 import Quests from './Quests';
 import Shop from './Shop';
@@ -18,6 +19,26 @@ const pages: { [index: string]: ComponentType } = {
 export default function App() {
   const [page, setPage] = useState('Play');
   const PageComponent = pages[page];
+
+  const [modalContent, setModalContent] = useState<ReactNode>(null);
+
+  const intro = (
+    <>
+      Hello
+      <button type='button' onClick={() => setModalContent(freeBucks)}>OK</button>
+    </>
+  );
+
+  const freeBucks = (
+    <>
+      Free bucks!
+      <button type='button' onClick={() => setModalContent(undefined)}>OK</button>
+    </>
+  );
+
+  useEffect(() => {
+    setModalContent(intro);
+  }, []);
 
   return (
     <div className={`App page-${page}`}>
@@ -35,6 +56,8 @@ export default function App() {
       </header>
 
       <PageComponent />
+
+      <Modal>{modalContent}</Modal>
 
       <footer></footer>
     </div>
