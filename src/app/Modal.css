@@ -60,10 +60,10 @@
         &.face {
           top: 15px;
         }
-        &.shirt {
+        &.top {
           top: -100px;
         }
-        &.pants {
+        &.bottom {
           top: -220px;
         }
       }

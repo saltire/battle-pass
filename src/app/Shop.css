@@ -43,16 +43,16 @@
             left: 0px;
           }
           &.hat img {
-            top: 0px;
+            top: -32px;
           }
           &.face img {
             top: -70px;
           }
-          &.shirt img {
+          &.top img {
             top: -175px;
           }
-          &.pants img {
-            top: -290px;
+          &.bottom img {
+            top: -296px;
           }
         }
 

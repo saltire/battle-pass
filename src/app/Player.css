@@ -16,10 +16,10 @@
     &.face {
       z-index: 40;
     }
-    &.shirt {
+    &.top {
       z-index: 30;
     }
-    &.pants {
+    &.bottom {
       z-index: 20;
     }
     &.feet {

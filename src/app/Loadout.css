@@ -39,10 +39,10 @@
         &.face img.item {
           top: -70px;
         }
-        &.shirt img.item {
+        &.top img.item {
           top: -175px;
         }
-        &.pants img.item {
+        &.bottom img.item {
           top: -290px;
         }
 

@@ -128,7 +128,7 @@ export default function App() {
       setModalContent(spendGonks);
       setShowGonkHighlight(true);
     }
-    else if (page === 'Play' && !seenLoadout && !(state.loadout.hat && state.loadout.face && state.loadout.shirt && state.loadout.pants)) {
+    else if (page === 'Play' && !seenLoadout && !(state.loadout.hat && state.loadout.face && state.loadout.top && state.loadout.bottom)) {
       setModalContent(gotoLoadout);
     }
     else if (state.justBought) {
