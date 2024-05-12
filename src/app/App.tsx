@@ -2,6 +2,7 @@ import { ComponentType, ReactNode, useEffect, useMemo, useState } from 'react';
 
 import './App.css';
 import BattlePass from './BattlePass';
+import Game from './Game';
 import Loadout from './Loadout';
 import Modal from './Modal';
 import Play from './Play';
@@ -41,8 +42,13 @@ export default function App() {
   });
 
   useEffect(() => {
-    waitingRoomAudio.play();
-  }, []);
+    if (state.play) {
+      waitingRoomAudio.pause();
+    }
+    else {
+      waitingRoomAudio.play();
+    }
+  }, [state.play]);
 
   const [seenIntro, setSeenIntro] = useState(false);
   const [seenBucks, setSeenBucks] = useState(false);
@@ -197,7 +203,7 @@ export default function App() {
     setTimeout(() => {
       setState(prev => ({ ...prev, loading: false }));
       setModalContent(intro);
-    }, 1000);
+    }, 3000);
   }, []);
 
   useEffect(() => {
@@ -247,50 +253,61 @@ export default function App() {
 
   return (
     <div className={`App page-${page}`}>
-      <header>
-        {Object.keys(pages).map(p => (
-          <button
-            key={p}
-            type='button'
-            disabled={state.loading}
-            className={[page === p && 'active', p === 'Zoid Pass' && 'bigger'].filter(Boolean).join(' ')}
-            onClick={() => setPage(p)}
-          >
-            {p}
-          </button>
-        ))}
-      </header>
-
-      <PageComponent state={state} setState={setState} />
-
-      <Modal>{modalContent}</Modal>
-
-      {showLevelHighlight && <img className='level highlight' src={burstImg} />}
-      {showStarHighlight && <img className='star highlight' src={burstImg} />}
-      {showGonkHighlight && <img className='gonk highlight' src={burstImg} />}
-      {showZoidHighlight && <img className='zoid highlight' src={burstImg} />}
-
-      <footer>
-        <div className='level'>{xpLevel}</div>
-        <span><img src={starImg} /> {state.stars || 0}</span>
-        {state.gonks !== undefined && <span><img src={gonkImg} /> {state.gonks}</span>}
-        {state.zoids !== undefined && <span><img className='zoids' src={zoidImg} /> {state.zoids}</span>}
-
-        <button
-          type='button'
-          className='mute'
-          onClick={() => {
-            if (waitingRoomAudio.volume) {
-              waitingRoomAudio.volume = 0;
-            }
-            else {
-              waitingRoomAudio.volume = 0.5;
-            }
+      {state.play ? (
+        <Game
+          onExit={() => {
+            setState(prev => ({ ...prev, play: false }));
+            setPage('Gonk Shop');
           }}
-        >
-          Mute
-        </button>
-      </footer>
+        />
+      ) : (
+        <>
+          <header>
+            {Object.keys(pages).map(p => (
+              <button
+                key={p}
+                type='button'
+                disabled={state.loading}
+                className={[page === p && 'active', p === 'Zoid Pass' && 'bigger'].filter(Boolean).join(' ')}
+                onClick={() => setPage(p)}
+              >
+                {p}
+              </button>
+            ))}
+          </header>
+
+          <PageComponent state={state} setState={setState} />
+
+          <Modal>{modalContent}</Modal>
+
+          {showLevelHighlight && <img className='level highlight' src={burstImg} />}
+          {showStarHighlight && <img className='star highlight' src={burstImg} />}
+          {showGonkHighlight && <img className='gonk highlight' src={burstImg} />}
+          {showZoidHighlight && <img className='zoid highlight' src={burstImg} />}
+
+          <footer>
+            <div className='level'>{xpLevel}</div>
+            <span><img src={starImg} /> {state.stars || 0}</span>
+            {state.gonks !== undefined && <span><img src={gonkImg} /> {state.gonks}</span>}
+            {state.zoids !== undefined && <span><img className='zoids' src={zoidImg} /> {state.zoids}</span>}
+
+            <button
+              type='button'
+              className='mute'
+              onClick={() => {
+                if (waitingRoomAudio.volume) {
+                  waitingRoomAudio.volume = 0;
+                }
+                else {
+                  waitingRoomAudio.volume = 0.5;
+                }
+              }}
+            >
+              Mute
+            </button>
+          </footer>
+        </>
+      )}
     </div>
   );
 }

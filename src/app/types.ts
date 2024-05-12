@@ -15,6 +15,7 @@ export type GameState = {
   level: number,
   levelClaimed: number,
   zoidPass?: boolean,
+  play?: boolean,
 };
 
 export type PageProps = {

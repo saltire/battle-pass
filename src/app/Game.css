@@ -1,0 +1,51 @@
+.Game {
+  position: fixed;
+  inset: 0;
+
+  &.loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(to bottom, var(--dark-orange), var(--orange), var(--light-blue), var(--purple), var(--dark-purple));
+
+    h1 {
+      font-size: 100px;
+      animation: 1s ease-in-out 0s infinite normal throb;
+    }
+  }
+
+  &.error {
+    padding: 100px 400px;
+    background-color: var(--dark-blue);
+    color: white;
+    z-index: 10000;
+    text-align: left;
+
+    em {
+      background-color: #ccc;
+      color: var(--dark-blue);
+      font-style: normal;
+    }
+
+    a {
+      text-decoration: underline;
+      color: #ccc;
+      cursor: url('/src/assets/cursor-hover.png'), pointer;
+    }
+  }
+}
+
+@keyframes throb {
+  0% {
+    transform: scale(1) rotate(0);
+  }
+  25% {
+    transform: scale(1.1) rotate(2deg);
+  }
+  50% {
+    transform: scale(1) rotate(0);
+  }
+  75% {
+    transform: scale(1.1) rotate(-2deg);
+  }
+}
