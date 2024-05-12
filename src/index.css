@@ -60,5 +60,10 @@ body {
     font-size: inherit;
     border: 0;
     cursor: url('/src/assets/cursor-hover.png'), pointer;
+
+    &[disabled] {
+      opacity: .5;
+      pointer-events: none;
+    }
   }
 }

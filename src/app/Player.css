@@ -1,0 +1,29 @@
+.Player {
+  position: relative;
+  width: 400px;
+  height: 484px;
+
+  img {
+    position: absolute;
+    inset: 0;
+
+    &.guy {
+      z-index: 10;
+    }
+    &.hat {
+      z-index: 50;
+    }
+    &.face {
+      z-index: 40;
+    }
+    &.shirt {
+      z-index: 30;
+    }
+    &.pants {
+      z-index: 20;
+    }
+    &.feet {
+      z-index: 15;
+    }
+  }
+}
