@@ -33,9 +33,32 @@ body {
   position: fixed;
   inset: 0;
   margin: 0;
-  background: #267ae9;
+  background: var(--dark-blue);
   font-family: PixelifySans, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
     Arial, sans-serif;
   font-weight: 400;
   cursor: url('/src/assets/cursor-arrow.png'), auto;
+
+  --light-cyan: #4ff3ff;
+  --cyan: #26bbe9;
+  --dark-cyan: #1798d4;
+
+  --light-blue: #4fb8ff;
+  --blue: #267ae9;
+  --dark-blue: #1759d4;
+
+  --light-orange: #ffd156;
+  --orange: #ffa61f;
+  --dark-orange: #d85d09;
+
+  * {
+    outline: none;
+  }
+
+  button {
+    font-family: inherit;
+    font-size: inherit;
+    border: 0;
+    cursor: url('/src/assets/cursor-hover.png'), pointer;
+  }
 }

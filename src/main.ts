@@ -11,6 +11,8 @@ const createWindow = () => {
   const mainWindow = new BrowserWindow({
     width: 1600,
     height: 900,
+    // titleBarOverlay: true,
+    // titleBarStyle:
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
     },
@@ -24,7 +26,9 @@ const createWindow = () => {
   }
 
   // Open the DevTools.
-  mainWindow.webContents.openDevTools();
+  // mainWindow.webContents.openDevTools();
+
+  mainWindow.setContentSize(1600, 900);
 };
 
 // This method will be called when Electron has finished
