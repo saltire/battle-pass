@@ -1,4 +1,6 @@
 import './Player.css';
+import { items } from './items';
+import playerImg from '../assets/BASE_GUY.png';
 
 export type PlayerLoadout = {
   hat?: string | null,
@@ -14,11 +16,12 @@ type PlayerProps = {
 export default function Player({ loadout }: PlayerProps) {
   return (
     <div className='Player'>
-      <img className='guy' src='/src/assets/BASE_GUY.png' />
+      <img className='guy' src={playerImg} />
 
-      {Object.entries(loadout).map(([slot, name]) => !!name && (
-        <img key={slot} className={slot} src={`/src/assets/items/${name}.png`} />
-      ))}
+      {Object.entries(loadout).map(([slot, name]) => {
+        const item = name ? items.find(i => i.name === name) : undefined;
+        return item && <img key={slot} className={slot} src={item.url} />;
+      })}
     </div>
   );
 }
