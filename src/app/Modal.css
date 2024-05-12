@@ -7,21 +7,33 @@
   inset: 0;
   background-color: transparent;
   pointer-events: none;
+  transition: all 500ms linear;
 
   &.visible {
+    background-color: rgb(255 255 255 / .4);
     pointer-events: all;
   }
 
   .Modal {
     position: relative;
     top: 900px;
-    transition: all 1000ms ease-in-out;
-    width: 300px;
-    height: 300px;
-    background: white;
+    transition: all 500ms ease-in-out;
+    max-width: 400px;
+    padding: 30px;
+    background-color: var(--light-white);
+    box-shadow: 5px 5px 0 0 white inset, -5px -5px 0 0 var(--dark-white) inset;
+    font-size: 24px;
+    text-align: center;
 
     &.visible {
       top: 0;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: var(--orange);
+      box-shadow: 5px 5px 0 0 var(--light-orange) inset, -5px -5px 0 0 var(--dark-orange) inset;
+      color: white;
     }
   }
 }

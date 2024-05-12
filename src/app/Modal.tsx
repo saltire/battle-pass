@@ -19,7 +19,6 @@ export default function Modal({ children }: ModalProps) {
     }
     else {
       setVisible(false);
-      setTimeout(() => setVisible(false));
     }
   }, [children]);
 
