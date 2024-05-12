@@ -14,6 +14,7 @@ export type GameState = {
   quests: string[],
   level: number,
   levelClaimed: number,
+  zoidPass?: boolean,
 };
 
 export type PageProps = {

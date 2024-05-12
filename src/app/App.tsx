@@ -103,6 +103,18 @@ export default function App() {
     </>
   ), []);
 
+  const claimRewards = useMemo(() => (
+    <>
+      <p>You have unclaimed Level Rewards!</p>
+      <button
+        type='button'
+        onClick={() => setPage('Quests')}
+      >
+        View Level Rewards
+      </button>
+    </>
+  ), []);
+
   const gotoLoadout = useMemo(() => (
     <>
       <p>Don't forget to equip your hard-earned items in your Loadout!</p>
@@ -167,7 +179,7 @@ export default function App() {
           setPage('Quests');
         }}
       >
-        View Quest Rewards
+        View Level Rewards
       </button>
     </div>
   )), [state.level, xpLevel]);
@@ -201,6 +213,9 @@ export default function App() {
     else if (page === 'Play' && !seenLoadout && !(state.loadout.hat && state.loadout.face && state.loadout.top && state.loadout.bottom)) {
       setModalContent(gotoLoadout);
     }
+    else if (page === 'Play' && state.levelClaimed < state.level) {
+      setModalContent(claimRewards);
+    }
     else if (justBought) {
       setModalContent(justBought);
     }
@@ -217,7 +232,7 @@ export default function App() {
     }
   }, [
     seenIntro, seenBucks, seenZoids, seenLoadout, page,
-    state.loading, state.gonks, state.zoids, state.loadout,
+    state.loading, state.gonks, state.zoids, state.loadout, state.level, state.levelClaimed,
     intro, freeBucks, spendGonks, justBought, questComplete, levelUp,
   ]);
 

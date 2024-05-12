@@ -1,3 +1,57 @@
 .BattlePass {
+  h1 {
+    position: relative;
+    margin: 0;
+    color: white;
+    font-size: 150px;
+    text-shadow: 8px 8px white, -8px -8px white, 8px -8px white, -8px 8px white;
 
+    h1 {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, var(--dark-purple), var(--light-orange));
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: none;
+    }
+  }
+
+  .goldtext {
+    background: linear-gradient(to bottom, var(--gold), var(--light-white), var(--gold));
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .zoidtext {
+    background: linear-gradient(to bottom, var(--light-purple), var(--light-orange));
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .pass {
+    padding: 20px;
+    background-color: var(--purple);
+    box-shadow: 5px 5px 0 0 var(--light-purple) inset, -5px -5px 0 0 var(--dark-purple) inset;
+    font-size: 30px;
+  }
+
+  .unlock {
+    padding: 20px;
+    background-color: var(--purple);
+    box-shadow: 5px 5px 0 0 var(--light-purple) inset, -5px -5px 0 0 var(--dark-purple) inset;
+    font-size: 30px;
+
+    button {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin: auto;
+      padding: 20px 40px;
+      background: linear-gradient(to bottom right, var(--gold), var(--light-white), var(--gold));
+      box-shadow: 5px 5px 0 0 var(--light-gold) inset, -5px -5px 0 0 var(--dark-gold) inset;
+      font-size: 50px;
+      color: var(--dark-gold);
+      text-shadow: 4px 4px var(--light-white);
+    }
+  }
 }
