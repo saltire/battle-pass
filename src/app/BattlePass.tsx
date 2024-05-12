@@ -25,7 +25,7 @@ export default function BattlePass({ state, setState }: PageProps) {
         </Modal>
       )}
 
-      {!state.zoidPass ? (
+      {state.zoidPass ? (
         <div className='pass'>
           <p>Stay tuned for <span className='goldtext'>ZOID PASS LOOTBOXES</span>!</p>
           <img src={lootboxImg} />
