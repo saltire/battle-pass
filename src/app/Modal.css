@@ -35,5 +35,32 @@
       box-shadow: 5px 5px 0 0 var(--light-orange) inset, -5px -5px 0 0 var(--dark-orange) inset;
       color: white;
     }
+
+    .boughtitem {
+      width: 300px;
+      height: 300px;
+      margin: 20px auto;
+      overflow: hidden;
+      position: relative;
+      background: var(--off-white);
+
+      img {
+        position: absolute;
+        left: -50px;
+
+        &.hat {
+          top: 15px;
+        }
+        &.face {
+          top: 15px;
+        }
+        &.shirt {
+          top: -100px;
+        }
+        &.pants {
+          top: -220px;
+        }
+      }
+    }
   }
 }

@@ -13,7 +13,7 @@ fs.readdir('./src/assets/items')
       names.filter(name => name.startsWith(slot)).forEach(filename => {
         const name = filename.replace('.png', '');
         const varName = name.replaceAll('-', '_');
-        console.log(`  { name: '${name}', slot: '${shortSlot}', url: ${varName} },`);
+        console.log(`  { name: '${name}', slot: '${shortSlot}', url: ${varName}, value: 50, rarity: 'common' },`);
       });
     });
     console.log('];');

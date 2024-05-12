@@ -14,6 +14,7 @@
       grid-template: repeat(3, 1fr) / repeat(5, 1fr);
       gap: 20px;
       row-gap: 20px;
+      height: 490px;
 
       button {
         position: relative;
@@ -23,26 +24,32 @@
         background-color: rgb(255 255 255 / .6);
         overflow: hidden;
 
-        img {
+        img.item {
           position: absolute;
           left: -125px;
         }
 
-        &.remove img {
+        &.remove img.item {
           top: 0px;
           left: 0px;
         }
-        &.hat img {
+        &.hat img.item {
           top: 0px;
         }
-        &.face img {
+        &.face img.item {
           top: -70px;
         }
-        &.shirt img {
+        &.shirt img.item {
           top: -175px;
         }
-        &.pants img {
+        &.pants img.item {
           top: -290px;
+        }
+
+        img.check {
+          position: absolute;
+          right: 0;
+          bottom: 0;
         }
       }
     }

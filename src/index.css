@@ -41,6 +41,10 @@ body {
   --gold: #ffda5b;
   --dark-gold: #e6a200;
 
+  --light-red: #ff9956;
+  --red: #ff5b1f;
+  --dark-red: #d81809;
+
   * {
     outline: none;
   }

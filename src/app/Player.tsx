@@ -1,13 +1,7 @@
 import './Player.css';
 import { items } from './items';
 import playerImg from '../assets/BASE_GUY.png';
-
-export type PlayerLoadout = {
-  hat?: string | null,
-  face?: string | null,
-  shirt?: string | null,
-  pants?: string | null,
-};
+import { PlayerLoadout } from './types';
 
 type PlayerProps = {
   loadout: PlayerLoadout,

@@ -1,32 +1,23 @@
 import { useState } from 'react';
 
 import './Loadout.css';
-import Player, { PlayerLoadout } from './Player';
+import Player from './Player';
 import { items } from './items';
-import allIcon from '../assets/icon_all.png';
-import hatIcon from '../assets/icon_hat.png';
-import faceIcon from '../assets/icon_face.png';
-import shirtIcon from '../assets/icon_shirt.png';
-import pantsIcon from '../assets/icon_pants.png';
-import remove from '../assets/remove.png';
-import tube from '../assets/background-TUBE.png';
+import { icons } from './slots';
+import checkImg from '../assets/check.png';
+import removeImg from '../assets/remove.png';
+import tubeImg from '../assets/background-TUBE.png';
+import { PageProps } from './types';
 
-const icons = {
-  all: allIcon,
-  hat: hatIcon,
-  face: faceIcon,
-  shirt: shirtIcon,
-  pants: pantsIcon,
-};
-
-export default function Loadout() {
-  const [loadout, setLoadout] = useState<PlayerLoadout>({});
+export default function Loadout({ state, setState }: PageProps) {
   const [viewSlot, setViewSlot] = useState<string | null>(null);
   const [page, setPage] = useState(0);
 
+  const playerItems = items.filter(item => state.items.includes(item.name));
+
   const filteredItems = [
-    ...viewSlot ? [{ slot: viewSlot, name: 'remove', url: remove }] : [],
-    ...items.filter(item => !viewSlot || item.slot === viewSlot),
+    ...viewSlot ? [{ slot: viewSlot, name: 'remove', url: removeImg }] : [],
+    ...playerItems.filter(item => !viewSlot || item.slot === viewSlot),
   ];
   const lastPage = Math.floor(filteredItems.length / 15);
 
@@ -38,7 +29,11 @@ export default function Loadout() {
             <button
               key={slot}
               type='button'
-              onClick={() => setViewSlot(slot === 'all' ? null : slot)}
+              disabled={!playerItems.some(item => slot === 'all' || item.slot === slot)}
+              onClick={() => {
+                setViewSlot(slot === 'all' ? null : slot);
+                setPage(0);
+              }}
             >
               <img src={url} />
             </button>
@@ -51,9 +46,10 @@ export default function Loadout() {
               key={name}
               type='button'
               className={name === 'remove' ? 'remove' : slot}
-              onClick={() => setLoadout(prev => ({ ...prev, [slot]: name === 'remove' ? null : name }))}
+              onClick={() => setState(prev => ({ ...prev, loadout: { ...prev.loadout, [slot]: name === 'remove' ? null : name } }))}
             >
-              <img src={url} />
+              <img className='item' src={url} />
+              {state.loadout[slot] === name && <img className='check' src={checkImg} />}
             </button>
           ))}
         </div>
@@ -69,8 +65,8 @@ export default function Loadout() {
         </div>
       </div>
 
-      <img className='tube' src={tube} />
-      <Player loadout={loadout} />
+      <img className='tube' src={tubeImg} />
+      <Player loadout={state.loadout} />
     </div>
   );
 }

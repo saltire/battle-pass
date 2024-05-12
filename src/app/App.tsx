@@ -1,4 +1,4 @@
-import { ComponentType, ReactNode, useEffect, useState } from 'react';
+import { ComponentType, ReactNode, useEffect, useMemo, useState } from 'react';
 
 import './App.css';
 import BattlePass from './BattlePass';
@@ -7,6 +7,7 @@ import Modal from './Modal';
 import Play from './Play';
 import Quests from './Quests';
 import Shop from './Shop';
+import { items } from './items';
 import { GameState, PageProps } from './types';
 import burstImg from '../assets/burst.png';
 import gonkImg from '../assets/currency_GONK.png';
@@ -25,6 +26,8 @@ export default function App() {
 
   const [state, setState] = useState<GameState>({
     loading: true,
+    items: [],
+    loadout: {},
   });
 
   const [seenIntro, setSeenIntro] = useState(false);
@@ -33,7 +36,7 @@ export default function App() {
   const [modalContent, setModalContent] = useState<ReactNode>(null);
   const [showGonkHighlight, setShowGonkHighlight] = useState(false);
 
-  const intro = (
+  const intro = useMemo(() => (
     <>
       <p>
         Welcome to <strong>GONKAZOID</strong>,
@@ -44,9 +47,9 @@ export default function App() {
         setState(prev => ({ ...prev, gonks: 500 }));
       }}>I'm excited!</button>
     </>
-  );
+  ), []);
 
-  const freeBucks = (
+  const freeBucks = useMemo(() => (
     <>
       <p>Season 98 has started!</p>
       <p>As a special offer, we're giving you 500 free <span className='gonktext'>Gonks</span> to spend!</p>
@@ -54,29 +57,41 @@ export default function App() {
         type='button'
         onClick={() => {
           setSeenBucks(true);
-          setShowGonkHighlight(false);
           setPage('Gonk Shop');
         }}
       >
         Go to Gonk Shop
       </button>
     </>
-  );
+  ), []);
 
-  const spendGonks = (
+  const spendGonks = useMemo(() => (
     <>
       <p>You have unspent <span className='gonktext'>Gonks</span>! Time to load up on items from the shop!</p>
       <button
         type='button'
-        onClick={() => {
-          setShowGonkHighlight(false);
-          setPage('Gonk Shop');
-        }}
+        onClick={() => setPage('Gonk Shop')}
       >
         Go to Gonk Shop
       </button>
     </>
-  );
+  ), []);
+
+  const justBoughtItem = useMemo(() => items.find(item => item.name === state.justBought), [state.justBought]);
+  const boughtItem = useMemo(() => (
+    <>
+      <p>UNLOCKED!</p>
+      <div className='boughtitem'>
+        <img className={justBoughtItem?.slot} src={justBoughtItem?.url} />
+      </div>
+      <button
+        type='button'
+        onClick={() => setState(prev => ({ ...prev, justBought: null }))}
+      >
+        Yay!
+      </button>
+    </>
+  ), [justBoughtItem]);
 
   useEffect(() => {
     setTimeout(() => {
@@ -97,10 +112,14 @@ export default function App() {
       setModalContent(spendGonks);
       setShowGonkHighlight(true);
     }
+    else if (state.justBought) {
+      setModalContent(boughtItem);
+    }
     else {
       setModalContent(null);
+      setShowGonkHighlight(false);
     }
-  }, [seenIntro, seenBucks, page, state.gonks]);
+  }, [seenIntro, seenBucks, page, state.gonks, state.justBought, intro, freeBucks, spendGonks, boughtItem]);
 
   return (
     <div className={`App page-${page}`}>
@@ -118,7 +137,7 @@ export default function App() {
         ))}
       </header>
 
-      <PageComponent state={state} />
+      <PageComponent state={state} setState={setState} />
 
       <Modal>{modalContent}</Modal>
 

@@ -35,13 +35,13 @@
     position: absolute;
     left: 0;
     right: 0;
-    z-index: 500;
     height: 80px;
     background: var(--blue);
   }
 
   header {
     top: 0;
+    z-index: 500;
     padding: 0 20px;
     text-align: left;
 
@@ -70,7 +70,8 @@
     bottom: 0;
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: flex-start;
+    padding: 0 20px;
     font-size: 35px;
 
     span {
@@ -84,7 +85,7 @@
 
   .gonk-highlight {
     position: absolute;
-    right: 5px;
+    left: -25px;
     bottom: -120px;
     z-index: 2000;
     animation: 6s linear 0s infinite normal rotate;
