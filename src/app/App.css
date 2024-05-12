@@ -37,6 +37,11 @@
     right: 0;
     height: 80px;
     background: var(--blue);
+    text-shadow: 2px 2px var(--light-blue);
+
+    button {
+      text-shadow: inherit;
+    }
   }
 
   header {

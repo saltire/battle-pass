@@ -44,6 +44,7 @@ export default function Shop({ state, setState }: PageProps) {
                   ...prev,
                   items: [...prev.items, name],
                   gonks: prev.gonks - value,
+                  gonksSpent: prev.gonksSpent + value,
                   justBought: name,
                 }))}
               >

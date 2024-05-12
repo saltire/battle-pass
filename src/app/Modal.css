@@ -29,6 +29,12 @@
       top: 0;
     }
 
+    strong {
+      background: linear-gradient(to bottom, var(--dark-orange), var(--orange), var(--light-blue), var(--purple), var(--dark-purple));
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
     button {
       padding: 10px 20px;
       background-color: var(--orange);

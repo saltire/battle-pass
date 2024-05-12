@@ -6,6 +6,7 @@ export type GameState = {
   loading: boolean,
   gonks?: number,
   zoids?: number,
+  gonksSpent?: number,
   items: string[],
   loadout: PlayerLoadout,
   justBought?: string | null,

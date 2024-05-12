@@ -32,6 +32,7 @@ export default function App() {
 
   const [seenIntro, setSeenIntro] = useState(false);
   const [seenBucks, setSeenBucks] = useState(false);
+  const [seenLoadout, setSeenLoadout] = useState(false);
 
   const [modalContent, setModalContent] = useState<ReactNode>(null);
   const [showGonkHighlight, setShowGonkHighlight] = useState(false);
@@ -77,6 +78,21 @@ export default function App() {
     </>
   ), []);
 
+  const gotoLoadout = useMemo(() => (
+    <>
+      <p>Don't forget to equip your hard-earned items in your Loadout!</p>
+      <button
+        type='button'
+        onClick={() => {
+          setSeenLoadout(true);
+          setPage('Loadout');
+        }}
+      >
+        Go to Loadout
+      </button>
+    </>
+  ), []);
+
   const justBoughtItem = useMemo(() => items.find(item => item.name === state.justBought), [state.justBought]);
   const boughtItem = useMemo(() => (
     <>
@@ -112,6 +128,9 @@ export default function App() {
       setModalContent(spendGonks);
       setShowGonkHighlight(true);
     }
+    else if (page === 'Play' && !seenLoadout && !(state.loadout.hat && state.loadout.face && state.loadout.shirt && state.loadout.pants)) {
+      setModalContent(gotoLoadout);
+    }
     else if (state.justBought) {
       setModalContent(boughtItem);
     }
@@ -119,7 +138,11 @@ export default function App() {
       setModalContent(null);
       setShowGonkHighlight(false);
     }
-  }, [seenIntro, seenBucks, page, state.gonks, state.justBought, intro, freeBucks, spendGonks, boughtItem]);
+  }, [
+    seenIntro, seenBucks, seenLoadout, page,
+    state.gonks, state.loadout, state.justBought,
+    intro, freeBucks, spendGonks, boughtItem,
+  ]);
 
   return (
     <div className={`App page-${page}`}>
