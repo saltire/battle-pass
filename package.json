@@ -32,12 +32,6 @@
     "typescript": "~4.5.4",
     "vite": "^5.0.12"
   },
-  "keywords": [],
-  "author": {
-    "name": "Marcus Kamps",
-    "email": "marcus@ambassador.ai"
-  },
-  "license": "MIT",
   "dependencies": {
     "electron-squirrel-startup": "^1.0.0",
     "react": "^18.3.1",
