@@ -5,6 +5,9 @@ import { PageProps } from './types';
 import Modal from './Modal';
 import lootboxImg from '../assets/loot-box-closed.png';
 import zoidImg from '../assets/currency_ZOID.png';
+import outerSpace from '../assets/sounds/Outer Space.mp3';
+
+const outerSpaceAudio = new Audio(outerSpace);
 
 export default function BattlePass({ state, setState }: PageProps) {
   const [showPurchase, setShowPurchase] = useState(false);
@@ -38,6 +41,7 @@ export default function BattlePass({ state, setState }: PageProps) {
             onClick={() => {
               if ((state.zoids || 0) >= 100) {
                 setState(prev => ({ ...prev, zoids: (prev.zoids || 0) - 100, zoidPass: true }));
+                outerSpaceAudio.play();
               }
               else {
                 setShowPurchase(true);

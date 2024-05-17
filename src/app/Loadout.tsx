@@ -4,6 +4,7 @@ import './Loadout.css';
 import Player from './Player';
 import { items } from './items';
 import { icons } from './slots';
+import { slotSounds, itemSounds } from './itemSounds';
 import checkImg from '../assets/check.png';
 import removeImg from '../assets/remove.png';
 import tubeImg from '../assets/background-TUBE.png';
@@ -13,7 +14,12 @@ export default function Loadout({ state, setState }: PageProps) {
   const [viewSlot, setViewSlot] = useState<string | null>(null);
   const [page, setPage] = useState(0);
 
-  const playerItems = items.filter(item => state.items.includes(item.name));
+  const playerItems = items.filter(item => state.items.includes(item.name))
+    .map(item => ({
+      ...item,
+      sounds: Object.entries(itemSounds).find(([partialName]) => item.name.includes(partialName))?.[1]
+        || slotSounds[item.slot],
+    }));
 
   const filteredItems = [
     ...viewSlot ? [{ slot: viewSlot, name: 'remove', url: removeImg }] : [],
@@ -41,12 +47,17 @@ export default function Loadout({ state, setState }: PageProps) {
         </div>
 
         <div className='items'>
-          {filteredItems.slice(page * 15, (page + 1) * 15).map(({ name, slot, url }) => (
+          {filteredItems.slice(page * 15, (page + 1) * 15).map(({ name, slot, url, ...item }) => (
             <button
               key={name}
               type='button'
               className={name === 'remove' ? 'remove' : slot}
-              onClick={() => setState(prev => ({ ...prev, loadout: { ...prev.loadout, [slot]: name === 'remove' ? null : name } }))}
+              onClick={() => {
+                setState(prev => ({ ...prev, loadout: { ...prev.loadout, [slot]: name === 'remove' ? null : name } }));
+                if ('sounds' in item) {
+                  item.sounds[Math.floor(Math.random() * item.sounds.length)].play();
+                }
+              }}
             >
               <img className='item' src={url} />
               {state.loadout[slot] === name && <img className='check' src={checkImg} />}
