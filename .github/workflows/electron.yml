@@ -1,0 +1,51 @@
+name: Build Electron project
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build_on_mac:
+    runs-on: macOS-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - uses: actions/setup-node@v4
+      with:
+        cache: npm
+        node-version: 20
+
+    - run: npm ci
+
+    - run: npm run make
+
+    - run: tar -cvf gonkazoid.tar ./out/gonkazoid-darwin-arm64/*.*
+
+    - uses: actions/upload-artifact@v4
+      with:
+        name: Gonkazoid-mac
+        path: gonkazoid.tar
+
+  build_on_win:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - uses: actions/setup-node@v4
+      with:
+        cache: npm
+        node-version: 20
+
+    - run: npm ci
+
+    - run: npm i @rollup/rollup-win32-x64-msvc
+
+    - run: npm run make
+
+    - uses: actions/upload-artifact@v4
+      with:
+        name: Gonkazoid-win
+        path: ./out/gonkazoid-win32-x64/**/*.*

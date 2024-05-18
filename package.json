@@ -2,6 +2,11 @@
   "name": "gonkazoid",
   "productName": "gonkazoid",
   "version": "1.0.0",
+  "description": "Gonkazoid! A game for TOJam 2024",
+  "author": {
+    "name": "saltire sable",
+    "email": "saltiresable@gmail.com"
+  },
   "main": ".vite/build/main.js",
   "scripts": {
     "start": "electron-forge start",
